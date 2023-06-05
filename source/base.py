@@ -17,3 +17,8 @@ class FileManager(ABC):
 
     def delete(self):
         pass
+
+
+class Vacancy(ABC):
+
+    pass
