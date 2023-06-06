@@ -1,16 +1,14 @@
 import json
-from typing import Any
 
 import requests
 
 from source.base import Api
-from source.vacancies.hh_vacancy import HHVacancy
 
 
 class HHApi(Api):
     __url = 'https://api.hh.ru/vacancies'
 
-    def __init__(self, keywords: Any):
+    def __init__(self, keywords: str):
 
         self.keywords = keywords
         self.params = {
@@ -25,7 +23,25 @@ class HHApi(Api):
     @property
     def get_request(self):
         response = requests.get(self.__url, params=self.params, headers=self.__headers)
-        return json.dumps(response.json(), indent=3, ensure_ascii=False)
+        return response.json()
+
+    def get_vacancies(self):
+        self.params['page'] = 0
+        self.list_of_vacancies = []
+
+        while True:
+            vacancies = self.get_request
+
+            if 'items' not in vacancies:
+                break
+
+            for vacancy in vacancies['items']:
+                self.list_of_vacancies.append(vacancy)
+                self.params['page'] += 1
+            if not self.list_of_vacancies:
+                return 'Нет совпадений по вакансиям'
+        return json.dumps(self.list_of_vacancies, ensure_ascii=False, indent=4)
+
 
     # def get_vacancies(self):
     #     self.params['page'] = 0
@@ -57,11 +73,14 @@ class HHApi(Api):
     #     return self.list_of_vacancies
 
 
-hh = HHApi('продавец')
+hh = HHApi('python')
 
 # print(hh.testing())
-print(hh.get_request)
+# print(hh.get_request)
+# print(len(hh.get_request))
+# print(type(hh.get_request))
 # print(hh.get_vacancies())
+# print(len(hh.list_of_vacancies))
 # for i in hh.list_of_vacancies:
 #     print(i.name)
 

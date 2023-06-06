@@ -2,12 +2,18 @@
 
 def search_vacancies():
 
-    keywords = input('Введите поисковой запрос: \n').split()
+    keywords = input('Введите поисковой запрос: \n')
     hh = HHApi(keywords)
     sj = SJApi(keywords)
-    handler = JSONHandler([hh, sj])
+    json_handler = JSONHandler([hh, sj])
 
-    handler.save()
+    json_handler.save()
+
+    for vacancy in json_handler.platform.get_vacancies():
+        Vacancy(
+            id=vacancy['id'],
+            name=
+        )
 
     top = int(input('Введите количество вакансий для вывода'))
     sort_vacancies = input('Хотите отсортировать по заработной плате?').lower()

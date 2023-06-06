@@ -16,3 +16,4 @@ class JSONHandler(FileManager):
 
     def delete(self):
         pass
+
