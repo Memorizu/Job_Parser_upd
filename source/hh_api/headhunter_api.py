@@ -56,16 +56,3 @@ class HHApi(Api):
             'platform': 'HHApi',
         }
         return new_vacancy
-
-
-# hh = HHApi('python')
-
-# print(hh.testing())
-# print(hh.get_request)
-# print(len(hh.get_request))
-# print(type(hh.get_request))
-# print(hh.get_vacancies())
-# print(len(hh.list_of_vacancies))
-# for i in hh.list_of_vacancies:
-#     print(i.name)
-

@@ -21,9 +21,3 @@ class JSONHandler(FileManager):
         with open('vacancies.json', 'r', encoding='utf-8') as f:
             return json.load(f)
 
-
-
-hh = HHApi('программист')
-sj = SJApi('программист')
-j = JSONHandler([hh, sj])
-j.save()

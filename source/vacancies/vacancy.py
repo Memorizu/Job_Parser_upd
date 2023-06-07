@@ -31,22 +31,4 @@ class Vacancy:
         return NotImplemented
 
 
-
-    def append_to_list(self, vacancies: list):
-        for vacancy in vacancies:
-            self.__list_of_vacancies.append(Vacancy(
-                id=vacancy['id'],
-                url=vacancy['url'],
-                name=vacancy['name'],
-                salary=vacancy['salary'],
-                description=vacancy['description'],
-                requirements=vacancy['requirements'],
-                area=vacancy['area'],
-                platform=vacancy['platform'],
-            ))
-
-
-    def sort_by_salary(self):
-        return self.__list_of_vacancies.sort(key=lambda vacancy: vacancy.salary['from'] if vacancy.salary and 'from' in vacancy.salary and
-                                                                         vacancy.salary['from'] is not None else float(
-            '-inf'), reverse=True)
+    #
