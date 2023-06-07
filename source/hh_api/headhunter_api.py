@@ -36,44 +36,29 @@ class HHApi(Api):
                 break
 
             for vacancy in vacancies['items']:
-                self.list_of_vacancies.append(vacancy)
+                formatted_vacancy = self.__formatted_vacancy(vacancy)
+                self.list_of_vacancies.append(formatted_vacancy)
                 self.params['page'] += 1
             if not self.list_of_vacancies:
                 return 'Нет совпадений по вакансиям'
-        return json.dumps(self.list_of_vacancies, ensure_ascii=False, indent=4)
+        return self.list_of_vacancies
+
+    @staticmethod
+    def __formatted_vacancy(vacancy: dict) -> dict:
+        new_vacancy = {
+            'id': vacancy['id'],
+            'url': vacancy['alternate_url'],
+            'name': vacancy['name'],
+            'salary': vacancy['salary'],
+            'description': vacancy['snippet']['responsibility'],
+            'requirements': vacancy['snippet']['requirement'],
+            'area': vacancy['area']['name'],
+            'platform': 'HHApi',
+        }
+        return new_vacancy
 
 
-    # def get_vacancies(self):
-    #     self.params['page'] = 0
-    #     self.list_of_vacancies = []
-    #     while True:
-    #         vacancies = self.get_request
-    #
-    #         if 'items' not in vacancies:
-    #             break
-    #
-    #         for vacancy in vacancies['items']:
-    #
-    #             if vacancy['name'] and vacancy['snippet']['responsibility']:
-    #                 if self.keywords.lower() in vacancy['name'].lower() or self.keywords.lower() in vacancy['snippet']['responsibility'].lower():
-    #                     self.list_of_vacancies.append(
-    #                         HHVacancy(
-    #                             id=vacancy['id'],
-    #                             name=vacancy['name'],
-    #                             salary=vacancy['salary'],
-    #                             description=vacancy['snippet']['responsibility'],
-    #                             requirements=vacancy['snippet']['requirement']
-    #                         )
-    #                     )
-    #             print(f'прочитана {self.params["page"]} страница')
-    #             self.params['page'] += 1
-    #
-    #         if not self.list_of_vacancies:
-    #             return 'Нет совпадений по вакансиям.'
-    #     return self.list_of_vacancies
-
-
-hh = HHApi('python')
+# hh = HHApi('python')
 
 # print(hh.testing())
 # print(hh.get_request)
