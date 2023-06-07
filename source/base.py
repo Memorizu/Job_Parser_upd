@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Api(ABC):
 
-    def connect(self):
+    def get_request(self):
         pass
 
     def get_vacancies(self):
@@ -17,3 +17,5 @@ class FileManager(ABC):
 
     def delete(self):
         pass
+
+
