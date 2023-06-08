@@ -40,7 +40,7 @@ class SJApi(Api):
             for vacancy in vacancies['objects']:
                 formatted_vacancies = self.__formatted_vacancies(vacancy)
                 self.list_of_vacancies.append(formatted_vacancies)
-                self.params['page'] += 1
+            self.params['page'] += 1
 
             if not self.list_of_vacancies:
                 return 'Нет совпадений по вакансиям'

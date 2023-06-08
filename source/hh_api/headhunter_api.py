@@ -38,7 +38,7 @@ class HHApi(Api):
             for vacancy in vacancies['items']:
                 formatted_vacancy = self.__formatted_vacancy(vacancy)
                 self.list_of_vacancies.append(formatted_vacancy)
-                self.params['page'] += 1
+            self.params['page'] += 1
             if not self.list_of_vacancies:
                 return 'Нет совпадений по вакансиям'
         return self.list_of_vacancies
