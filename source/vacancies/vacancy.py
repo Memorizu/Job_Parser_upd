@@ -23,7 +23,13 @@ class Vacancy:
 
     def __str__(self):
         return f"{self.name} \n" \
-               f"от {self.salary['from']}"
+               f"от {self.salary['from']}\n" \
+               f"{self.url}\n" \
+               f"Описание вакансии: {self.description}\n" \
+               f"Требования: {self.requirements}\n" \
+               f"{self.area}\n" \
+               f"{self.platform}\n" \
+               f"=========================================="
 
     def __gt__(self, other):
         if isinstance(other, Vacancy):
