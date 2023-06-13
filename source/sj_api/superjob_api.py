@@ -3,6 +3,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
+from exceptions import InvalidRequest
 from source.base import Api
 load_dotenv()
 
@@ -41,10 +42,9 @@ class SJApi(Api):
                 formatted_vacancies = self.__formatted_vacancies(vacancy)
                 self.list_of_vacancies.append(formatted_vacancies)
             self.params['page'] += 1
-
+            print('Следубщая страница на SJ')
             if not self.list_of_vacancies:
-                return 'Нет совпадений по вакансиям'
-
+                raise InvalidRequest()
             return self.list_of_vacancies
 
     @staticmethod
@@ -53,7 +53,7 @@ class SJApi(Api):
             'id': vacancy['id'],
             'url': vacancy['link'],
             'name': vacancy['profession'],
-            'salary': {'from': vacancy['payment_from'], 'to': vacancy['payment_to']},
+            'salary': vacancy['payment_from'],
             'description': vacancy['candidat'],
             'requirements': None,
             'area': vacancy['place_of_work']['title'],
@@ -61,5 +61,6 @@ class SJApi(Api):
         }
         return new_vacancy
 
-
-
+# s = SJApi('developer')
+# print(s.get_request())
+# print(len(s.list_of_vacancies))

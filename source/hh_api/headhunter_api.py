@@ -1,7 +1,7 @@
-import json
 
 import requests
 
+from exceptions import InvalidRequest
 from source.base import Api
 
 
@@ -39,20 +39,29 @@ class HHApi(Api):
                 formatted_vacancy = self.__formatted_vacancy(vacancy)
                 self.list_of_vacancies.append(formatted_vacancy)
             self.params['page'] += 1
+            print('Следующая страница на HH')
+
             if not self.list_of_vacancies:
-                return 'Нет совпадений по вакансиям'
+                raise InvalidRequest()
         return self.list_of_vacancies
 
     @staticmethod
     def __formatted_vacancy(vacancy: dict) -> dict:
+        salary = vacancy['salary']['from'] if vacancy['salary'] is not None else None
         new_vacancy = {
             'id': vacancy['id'],
             'url': vacancy['alternate_url'],
             'name': vacancy['name'],
-            'salary': vacancy['salary'],
+            'salary': salary,
             'description': vacancy['snippet']['responsibility'],
             'requirements': vacancy['snippet']['requirement'],
             'area': vacancy['area']['name'],
             'platform': 'HHApi',
         }
         return new_vacancy
+
+
+# hh = HHApi('python')
+# # # print(hh.get_request)
+# print(hh.get_vacancies())
+# print(len(hh.list_of_vacancies))

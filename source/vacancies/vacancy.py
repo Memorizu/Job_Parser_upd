@@ -23,7 +23,7 @@ class Vacancy:
 
     def __str__(self):
         return f"{self.name} \n" \
-               f"от {self.salary['from']}\n" \
+               f"от {self.salary}\n" \
                f"{self.url}\n" \
                f"Описание вакансии: {self.description}\n" \
                f"Требования: {self.requirements}\n" \
@@ -33,8 +33,7 @@ class Vacancy:
 
     def __gt__(self, other):
         if isinstance(other, Vacancy):
-            return self.salary['from'] > other.salary['from']
+            return self.salary_from > other.salary_from
         return NotImplemented
 
 
-    #

@@ -33,3 +33,4 @@ class JSONHandler(FileManager):
         ) for vacancy in vacancies]
         return list_of_vacancies
 
+
