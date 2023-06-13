@@ -8,7 +8,7 @@ from source.base import Api
 class HHApi(Api):
     __url = 'https://api.hh.ru/vacancies'
 
-    def __init__(self, keywords: str):
+    def __init__(self, keywords: str) -> None:
 
         self.keywords = keywords
         self.params = {
@@ -25,7 +25,7 @@ class HHApi(Api):
         response = requests.get(self.__url, params=self.params, headers=self.__headers)
         return response.json()
 
-    def get_vacancies(self):
+    def get_vacancies(self) -> list:
         self.params['page'] = 0
         self.list_of_vacancies = []
 
@@ -39,7 +39,7 @@ class HHApi(Api):
                 formatted_vacancy = self.__formatted_vacancy(vacancy)
                 self.list_of_vacancies.append(formatted_vacancy)
             self.params['page'] += 1
-            print('Следующая страница на HH')
+            print(f'Загрузка вакансий из HH, {self.params["page"]} страница')
 
             if not self.list_of_vacancies:
                 raise InvalidRequest()
@@ -59,9 +59,3 @@ class HHApi(Api):
             'platform': 'HHApi',
         }
         return new_vacancy
-
-
-# hh = HHApi('python')
-# # # print(hh.get_request)
-# print(hh.get_vacancies())
-# print(len(hh.list_of_vacancies))

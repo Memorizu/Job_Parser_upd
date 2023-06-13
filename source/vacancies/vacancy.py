@@ -31,9 +31,9 @@ class Vacancy:
                f"{self.platform}\n" \
                f"=========================================="
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         if isinstance(other, Vacancy):
-            return self.salary_from > other.salary_from
+            return self.salary > other.salary
         return NotImplemented
 
 

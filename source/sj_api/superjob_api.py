@@ -1,4 +1,3 @@
-import json
 import os
 import requests
 from dotenv import load_dotenv
@@ -26,26 +25,27 @@ class SJApi(Api):
         }
         self.list_of_vacancies = []
 
-    def get_request(self):
+    def get_request(self) -> list[dict]:
         response = requests.get(self.__url, headers=self.headers, params=self.params)
         return response.json()
 
-    def get_vacancies(self):
+    def get_vacancies(self) -> list:
         self.params['page'] = 0
 
         while True:
             vacancies = self.get_request()
-            if 'objects' not in vacancies:
+            if not vacancies['objects']:
                 break
 
             for vacancy in vacancies['objects']:
                 formatted_vacancies = self.__formatted_vacancies(vacancy)
                 self.list_of_vacancies.append(formatted_vacancies)
             self.params['page'] += 1
-            print('Следубщая страница на SJ')
+            print(f'Загрузка вакансий из SJ, {self.params["page"]} страница')
+
             if not self.list_of_vacancies:
                 raise InvalidRequest()
-            return self.list_of_vacancies
+        return self.list_of_vacancies
 
     @staticmethod
     def __formatted_vacancies(vacancy: dict) -> dict:
@@ -60,7 +60,3 @@ class SJApi(Api):
             'platform': 'SJApi',
         }
         return new_vacancy
-
-# s = SJApi('developer')
-# print(s.get_request())
-# print(len(s.list_of_vacancies))
