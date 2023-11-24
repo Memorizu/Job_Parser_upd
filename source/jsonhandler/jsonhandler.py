@@ -22,8 +22,3 @@ class JSONHandler(FileManager):
             return json.load(f)
 
 
-
-hh = HHApi('программист')
-sj = SJApi('программист')
-j = JSONHandler([hh, sj])
-j.save()
