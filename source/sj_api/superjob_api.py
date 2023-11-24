@@ -60,8 +60,3 @@ class SJApi(Api):
             'platform': 'SJApi',
         }
         return new_vacancy
-
-
-# s = SJApi('python')
-# print(s.get_vacancies())
-# print(s.get_vacancies2())
